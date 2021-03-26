@@ -53,16 +53,13 @@ class ViewController: UIViewController {
         redValueLabel.isHidden = false
         greenValueLabel.isHidden = false
         blueValueLabel.isHidden = false
+
         
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        
-        red = CGFloat(redSlider.value)
+        let red = CGFloat(redSlider.value)
         redValueLabel.text = String(format: "%.2f", redSlider.value)
-        green = CGFloat(greenSlider.value)
+        let green = CGFloat(greenSlider.value)
         greenValueLabel.text = String(format: "%.2f", greenSlider.value)
-        blue = CGFloat(blueSlider.value)
+        let blue = CGFloat(blueSlider.value)
         blueValueLabel.text = String(format: "%.2f", blueSlider.value)
     
         let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
@@ -70,3 +67,4 @@ class ViewController: UIViewController {
 }
 
 }
+
