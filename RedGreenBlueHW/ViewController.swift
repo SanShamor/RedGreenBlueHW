@@ -48,8 +48,6 @@ class ViewController: UIViewController {
         blueSlider.value = 0.0
     }
     
-    
-    
     private func updateColor() {
         buttonVision.isHidden = false
         redValueLabel.isHidden = false
