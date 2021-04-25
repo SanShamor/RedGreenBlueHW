@@ -27,17 +27,14 @@ class SettingsViewController: UIViewController {
     // MARK: - Public Properties & viewDidLoad
     var colorSettingsVC: UIColor!
     
-    var redColorValue: Float = 0.50
-    var greenColorValue: Float = 0.50
-    var blueColorValue: Float = 0.50
-    
     var delegate: SettingsViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewColor.layer.cornerRadius = 45
-        updateValuesByProperties()
         viewColor.backgroundColor = colorSettingsVC
+        updateValuesByProperties()
+
     }
     
     // MARK: - IB Actions
@@ -52,10 +49,10 @@ class SettingsViewController: UIViewController {
     @IBAction func DoneButtonPressed() {
         view.endEditing(true)
         
-        delegate.setNewColor(redValue: redSlider.value,
-                             greenValue: greenSlider.value,
-                             blueValue: blueSlider.value)
-        
+        //delegate.setNewColor(redValue: redSlider.value,
+        //greenValue: greenSlider.value,
+        //blueValue: blueSlider.value)
+        delegate.setNewColor(color: (viewColor.backgroundColor ?? view.backgroundColor)!)
         dismiss(animated: true)
     }
     
@@ -86,35 +83,44 @@ class SettingsViewController: UIViewController {
         updateColorBySliders()
     }
     private func updateValuesByProperties() {
-        redValueLabel.text = String(format: "%.2f", redColorValue)
-        redTextField.text = String(format: "%.2f", redColorValue)
-        redSlider.value = redColorValue
+        setSliders()
+        redValueLabel.text = String(format: "%.2f", redSlider.value)
+        redTextField.text = String(format: "%.2f", redSlider.value)
+        redSlider.value = redSlider.value
         
-        greenValueLabel.text = String(format: "%.2f", greenColorValue)
-        greenTextField.text = String(format: "%.2f", greenColorValue)
-        greenSlider.value = greenColorValue
+        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
+        greenTextField.text = String(format: "%.2f", greenSlider.value)
+        greenSlider.value = greenSlider.value
         
-        blueValueLabel.text = String(format: "%.2f", blueColorValue)
-        blueTextField.text = String(format: "%.2f", blueColorValue)
-        blueSlider.value = blueColorValue
+        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
+        blueTextField.text = String(format: "%.2f", blueSlider.value)
+        blueSlider.value = blueSlider.value
     }
-}
-// MARK: - Extension
-extension SettingsViewController: UITextFieldDelegate {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
+    private func setSliders() {
+        let ciColor = CIColor(color: colorSettingsVC)
+        
+        redSlider.value = Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == redTextField {
-            greenTextField.becomeFirstResponder()
-        } else if textField == greenTextField {
-            blueTextField.becomeFirstResponder()
-        } else {
-            updateColorByTextFields()
-        }
-        return true
-    }
 }
+    // MARK: - Extension
+    extension SettingsViewController: UITextFieldDelegate {
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            view.endEditing(true)
+        }
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            if textField == redTextField {
+                greenTextField.becomeFirstResponder()
+            } else if textField == greenTextField {
+                blueTextField.becomeFirstResponder()
+            } else {
+                updateColorByTextFields()
+            }
+            return true
+        }
+    }
 

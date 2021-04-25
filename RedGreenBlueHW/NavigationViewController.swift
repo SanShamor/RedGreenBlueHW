@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate {
-    func setNewColor(redValue: Float, greenValue: Float, blueValue: Float)
+    func setNewColor(color: UIColor)
 }
 
 class NavigationViewController: UIViewController {
@@ -26,31 +26,33 @@ class NavigationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let bgColorView = segue.destination as? SettingsViewController else { return }
-        guard let redSegue = segue.destination as? SettingsViewController else { return }
-        guard let greenSegue = segue.destination as? SettingsViewController else { return }
-        guard let blueSegue = segue.destination as? SettingsViewController else { return }
+        //guard let redSegue = segue.destination as? SettingsViewController else { return }
+        //guard let greenSegue = segue.destination as? SettingsViewController else { return }
+        //guard let blueSegue = segue.destination as? SettingsViewController else { return }
         
         bgColorView.colorSettingsVC = color
         bgColorView.delegate = self
         
-        redSegue.redColorValue = redColorValue
-        greenSegue.greenColorValue = greenColorValue
-        blueSegue.blueColorValue = blueColorValue
+        //redSegue.redColorValue = redColorValue
+        //greenSegue.greenColorValue = greenColorValue
+        //blueSegue.blueColorValue = blueColorValue
     }
     
 }
 // MARK: - Extension
 extension NavigationViewController: SettingsViewControllerDelegate {
-    func setNewColor(redValue: Float, greenValue: Float, blueValue: Float) {
-        self.color = UIColor(
-            red: CGFloat(redValue),
-            green: CGFloat(greenValue),
-            blue: CGFloat(blueValue),
-            alpha: 1)
+    //func setNewColor(redValue: Float, greenValue: Float, blueValue: Float) {
+    func setNewColor(color: UIColor) {
+    self.color = color
+    //self.color = UIColor(
+           // red: CGFloat(redValue),
+           // green: CGFloat(greenValue),
+           // blue: CGFloat(blueValue),
+            //alpha: 1)
         
-        redColorValue = redValue
-        greenColorValue = greenValue
-        blueColorValue = blueValue
+        //redColorValue = redValue
+        //greenColorValue = greenValue
+        //blueColorValue = blueValue
         
         view.backgroundColor = color
     }
