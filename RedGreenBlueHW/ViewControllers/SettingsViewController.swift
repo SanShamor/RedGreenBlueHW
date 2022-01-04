@@ -26,7 +26,6 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Public Properties & viewDidLoad
     var colorSettingsVC: UIColor!
-    
     var delegate: SettingsViewControllerDelegate!
     
     override func viewDidLoad() {
@@ -48,10 +47,6 @@ class SettingsViewController: UIViewController {
     
     @IBAction func DoneButtonPressed() {
         view.endEditing(true)
-        
-        //delegate.setNewColor(redValue: redSlider.value,
-        //greenValue: greenSlider.value,
-        //blueValue: blueSlider.value)
         delegate.setNewColor(color: (viewColor.backgroundColor ?? view.backgroundColor)!)
         dismiss(animated: true)
     }
